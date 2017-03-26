@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentry
+  namespace: sentry
+  labels:
+    k8s-app: sentry
+spec:
+  type: ClusterIP
+  ports:
+  - name: sentry
+    port: 80
+    targetPort: sentry
+  selector:
+    k8s-app: sentry

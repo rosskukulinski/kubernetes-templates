@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: sentry
+  name: redis-monitor
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: redis-monitor
+    spec:
+      containers:
+      - name: metrics
+        image: rosskukulinski/redis_exporter
+        imagePullPolicy: Always
+        env:
+          - name: REDIS_ALIAS
+            value: redis
+          - name: SENTINEL_ADDR
+            value: redis-sentinel:26379
+          - name: SENTINEL_MASTR
+            value: mymaster
+        ports:
+        - name: metrics
+          containerPort: 9121
+        resources:
+          requests:
+            memory: 50Mi
+            cpu: 50m
+          limits:
+            memory: 50Mi
+            cpu: 50m
+      volumes:
+        - name: data
+          emptyDir: {}

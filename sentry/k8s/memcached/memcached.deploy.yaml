@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: memcached-sentry
+  namespace: sentry
+  labels:
+    k8s-app: memcached-sentry
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: memcached-sentry
+    spec:
+      containers:
+      - name: memcached-sentry
+        image: memcached:1.4.32
+        imagePullPolicy: IfNotPresent
+        command:
+        - memcached
+        - -m 500
+        ports:
+        - name: memcache
+          containerPort: 11211
+        livenessProbe:
+          tcpSocket:
+            port: memcache
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: memcache
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 500m
+          limits:
+            memory: 512Mi
+            cpu: 500m
+      - name: metrics
+        image: quay.io/prometheus/memcached-exporter:v0.3.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: metrics
+          containerPort: 9150
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 100m

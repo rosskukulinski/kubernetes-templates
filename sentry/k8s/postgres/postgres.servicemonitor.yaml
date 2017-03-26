@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ServiceMonitor
+metadata:
+  name: postgres-sentry
+  labels:
+    k8s-apps: postgres
+  namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+    - sentry
+  jobLabel: k8s-app
+  selector:
+    matchLabels:
+      app: postgresql-sentry
+  endpoints:
+  - port: prometheus
+    interval: 15s

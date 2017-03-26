@@ -1,0 +1,201 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sentry
+  namespace: sentry
+  labels:
+    k8s-app: sentry
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: sentry
+      annotations:
+        pod.beta.kubernetes.io/init-containers: '[
+            {
+                "name": "sentry-upgrade",
+                "image": "gcr.io/XXXX/sentry-onpremise:8.14",
+                "command": ["sentry", "upgrade", "--noinput"],
+                "imagePullPolicy": "Always",
+                "env": [
+                  {
+                    "name": "SENTRY_SECRET_KEY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "sentry-config",
+                        "key": "SENTRY_SECRET_KEY"
+                      }
+                    }
+                  },
+                  {
+                    "name": "SENTRY_MEMCACHED_HOST",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "sentry-config",
+                        "key": "SENTRY_MEMCACHED_HOST"
+                      }
+                    }
+                  },
+                  {
+                    "name": "SENTRY_REDIS_HOST",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "sentry-config",
+                        "key": "SENTRY_REDIS_HOST"
+                      }
+                    }
+                  },
+                  {
+                    "name": "SENTRY_POSTGRES_HOST",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "sentry-config",
+                        "key": "SENTRY_POSTGRES_HOST"
+                      }
+                    }
+                  },
+                  {
+                    "name": "SENTRY_DB_USER",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "sentry-config",
+                        "key": "SENTRY_DB_USER"
+                      }
+                    }
+                  },
+                  {
+                    "name": "SENTRY_DB_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "postgresql-sentry",
+                        "key": "postgres-password"
+                      }
+                    }
+                  }
+                ]
+            }
+        ]'
+    spec:
+      containers:
+      - name: sentry
+        image: gcr.io/XXX/sentry-onpremise:8.14
+        imagePullPolicy: Always
+        args:
+          - run
+          - web
+          - '-w'
+          - '4'
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 2000m
+          limits:
+            memory: 1Gi
+            cpu: 2000m
+        env:
+        - name: SENTRY_SECRET_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_SECRET_KEY
+        - name: SENTRY_MEMCACHED_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_MEMCACHED_HOST
+        - name: SENTRY_REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_REDIS_HOST
+        - name: SENTRY_POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_POSTGRES_HOST
+        - name: SENTRY_DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_DB_USER
+        - name: SENTRY_FILESTORE_DIR
+          value: /var/lib/sentry
+        - name: SENTRY_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-sentry
+              key: postgres-password
+        - name: SENTRY_SINGLE_ORGANIZATION
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_SINGLE_ORGANIZATION
+        - name: SENTRY_SERVER_EMAIL
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_SERVER_EMAIL
+        - name: SENTRY_EMAIL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_EMAIL_HOST
+        - name: SENTRY_EMAIL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_EMAIL_PORT
+        - name: SENTRY_EMAIL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_EMAIL_USER
+        - name: SENTRY_EMAIL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_EMAIL_PASSWORD
+        - name: SENTRY_EMAIL_USE_TLS
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_EMAIL_USE_TLS
+        - name: SENTRY_ENABLE_EMAIL_REPLIES
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_ENABLE_EMAIL_REPLIES
+        - name: SENTRY_SMTP_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_SMTP_HOSTNAME
+        - name: SENTRY_MAILGUN_API_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: sentry-config
+              key: SENTRY_MAILGUN_API_KEY
+        - name: SENTRY_USE_SSL
+          value: "1"
+        livenessProbe:
+          httpGet:
+            path: /_health/
+            port: 9000
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: /_health/
+            port: 9000
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        ports:
+        - name: sentry
+          containerPort: 9000
+        volumeMounts:
+        - name: sentry-data
+          mountPath: /var/lib/sentry
+      volumes:
+      - name: sentry-data
+        persistentVolumeClaim:
+          claimName: sentry

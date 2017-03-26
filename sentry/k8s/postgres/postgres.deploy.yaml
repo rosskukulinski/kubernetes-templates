@@ -1,0 +1,88 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgresql-sentry
+  namespace: sentry
+  labels:
+    k8s-app: postgresql-sentry
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: postgresql-sentry
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:9.5
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_USER
+          value:  sentry
+          # Required for pg_isready in the health probes.
+        - name: PGUSER
+          value: sentry
+        - name: POSTGRES_DB
+          value: sentry
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-sentry
+              key: postgres-password
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        ports:
+        - name: postgresql
+          containerPort: 5432
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - exec pg_isready --host $POD_IP
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - exec pg_isready --host $POD_IP
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: 4Gi
+            cpu: 2000m
+          limits:
+            memory: 4Gi
+            cpu: 2000m
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data/pgdata
+          subPath: postgresql-db
+      - name: metrics
+        image: wrouesnel/postgres_exporter:v0.1.1
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DATA_SOURCE_NAME
+          value: postgresql://postgres@127.0.0.1:5432?sslmode=disable
+        ports:
+        - name: metrics
+          containerPort: 9187
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 100m
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: postgresql-sentry
