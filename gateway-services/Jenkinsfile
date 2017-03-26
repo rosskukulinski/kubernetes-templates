@@ -1,0 +1,91 @@
+#!groovy
+def project = 'XXXX'
+def DEPLOY_TIMEOUT = 300
+def appName = 'gateway'
+def prodNS = 'default'
+def gitCommit
+def svcName = "${appName}"
+def branch = "${env.BRANCH_NAME.toLowerCase()}"
+
+
+try {
+  notifyBuild('IN_PROGRESS', "Started")
+  milestone()
+  node('services-k8s') {
+    stage('Checkout') {
+      checkout scm
+      gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+      devNS = "dev-${appName}-${branch}"
+      stash(includes: '**', name: 'gateway-services')
+    }
+  }
+  //
+  switch (env.BRANCH_NAME) {
+    // Roll out to staging
+    case "master":
+        milestone()
+        stage("Deploy To Production") {
+          lock('gateway-services-production') {
+            node('services-k8s') {
+              unstash('gateway-services')
+              // Change deployed image in staging to the one we just built
+              notifyBuild('IN_PROGRESS', "Deploying ${appName} to production")
+              sh("make all")
+              sh("sed -i.bak 's#:latest#${gitCommit}#' ./k8s/*.yaml")
+              sh("kubectl --namespace=${prodNS} apply -f k8s/gateway.service.yaml --record")
+              sh("kubectl --namespace=${prodNS} apply -f k8s/gateway-upstreams.configmap.yaml --record")
+              sh("kubectl --namespace=${prodNS} apply -f k8s/gateway.configmap.yaml --record")
+              sh("kubectl --namespace=${prodNS} apply -f k8s/gateway.deployment.yaml --record")
+
+              try {
+                sh("timeout.sh -t ${DEPLOY_TIMEOUT} verify-deployment ${appName} ${prodNS}")
+              }
+              catch (e) {
+                sh("timeout.sh -t ${DEPLOY_TIMEOUT} debug-deployment ${appName} ${prodNS}")
+                error("Deployment failed")
+              }
+            }
+            notifyBuild('SUCCESSFUL', "Deployed to production")
+            milestone()
+          }
+        }
+        break
+  }
+
+} catch (e) {
+  currentBuild.result = "FAILED"
+  notifyBuild("FAILED", e.message)
+  throw e
+} finally {
+  // Success or failure, always send notifications
+  notifyBuild(currentBuild.result, 'Build finished')
+}
+
+def notifyBuild(String buildStatus = 'IN_PROGRESS', String message = 'In progress') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}] ${message}'"
+  def summary = "${subject} (${env.BUILD_URL} ${env.BUILD_URL}console)"
+
+  // Override default values based on build status
+  if (buildStatus == 'IN_PROGRESS') {
+    color = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL') {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else if (buildStatus == 'PAUSED') {
+    color = 'BLUE'
+    colorCode = "#0000FF"
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
+}

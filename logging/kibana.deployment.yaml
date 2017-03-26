@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: logging
+  labels:
+    k8s-app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kibana
+  template:
+    metadata:
+      labels:
+        k8s-app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: rosskukulinski/kibana:v5.2.1
+        resources:
+          # keep request = limit to keep this container in guaranteed class
+          limits:
+            cpu: 200m
+          requests:
+            cpu: 200m
+        env:
+          - name: "ELASTICSEARCH_URL"
+            value: "http://elasticsearch:9200"
+          - name: "SERVER_HOST"
+            value: "0.0.0.0"
+        ports:
+        - containerPort: 5601
+          name: ui
+          protocol: TCP

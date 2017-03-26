@@ -1,0 +1,14 @@
+apiVersion: "monitoring.coreos.com/v1alpha1"
+kind: "ServiceMonitor"
+metadata:
+  name: "es-exporter"
+  namespace: monitoring
+  labels:
+    k8s-app: elasticsearch
+spec:
+  selector:
+    matchLabels:
+      k8s-app: elasticsearch
+  endpoints:
+  - port: "9200"
+    path: "/_prometheus/metrics"

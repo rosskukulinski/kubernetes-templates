@@ -1,0 +1,15 @@
+apiVersion: "stable.k8s.psg.io/v1"
+kind: "Certificate"
+metadata:
+  name: "services-tls"
+spec:
+  domain: "clustername.tld.com"
+  email: "ross@kukulinski.com"
+  provider: "googlecloud"
+  secretName: "services-tls"
+  altNames:
+    - "grafana.tld.com"
+    - "prometheus.tld.com"
+    - "logs.tld.com"
+    - "jenkins.tld.com"
+    - "es.tld.com"

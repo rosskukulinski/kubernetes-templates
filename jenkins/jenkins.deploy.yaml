@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: master
+    k8s-app: jenkins
+  name: jenkins
+  namespace: jenkins
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: master
+        k8s-app: jenkins
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Duser.timezone=US/Eastern
+        image: jenkins:2.32.3-alpine
+        imagePullPolicy: IfNotPresent
+        name: master
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 50000
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /login
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 2
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1000Mi
+          requests:
+            cpu: 1000m
+            memory: 1000Mi
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
+      volumes:
+      - gcePersistentDisk:
+          fsType: ext4
+          partition: 1
+          pdName: jenkins-home
+        name: jenkins-home

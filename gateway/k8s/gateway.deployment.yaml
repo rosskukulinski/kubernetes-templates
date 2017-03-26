@@ -1,0 +1,76 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: gateway
+    build-sha1: ":latest"
+    build-number: "BUILD_NUMBER"
+  name: gateway
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: gateway
+    spec:
+      containers:
+      - image: rosskukulinski/nginx-kubernetes-reload:v2.0.1
+        imagePullPolicy: IfNotPresent
+        name: gateway
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        - containerPort: 443
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        env:
+          - name: BUILD_SHA1
+            value: ":latest"
+          - name: WATCH_PATHS
+            value: "/etc/nginx /etc/nginx-upstreams /etc/nginx-ssl/gateway/"
+        volumeMounts:
+        - mountPath: /etc/nginx/
+          name: gateway-config
+        - mountPath: /etc/nginx-upstreams/
+          name: gateway-upstreams
+        - mountPath: /etc/nginx-ssl/gateway/
+          name: gateway-tls
+        - mountPath: /etc/nginx-dhparams/
+          name: nginx-dhparams
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 50m
+            memory: 50Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+      restartPolicy: Always
+      volumes:
+      - name: gateway-config
+        configMap:
+          name: gateway-config
+      - name: gateway-upstreams
+        configMap:
+          name: gateway-upstreams
+      - name: gateway-tls
+        secret:
+          secretName: gateway-tls
+      - name: nginx-dhparams
+        secret:
+          secretName: nginx-dhparams
