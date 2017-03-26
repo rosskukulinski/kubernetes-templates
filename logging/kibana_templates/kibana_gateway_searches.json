@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "451a6340-0f5a-11e7-b6b1-05aba697aeb8",
+    "_type": "search",
+    "_source": {
+      "title": "gateway-production 5XX",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "kubernetes.labels.app",
+        "code",
+        "path"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.labels.app\",\"negate\":false,\"value\":\"gateway\"},\"query\":{\"match\":{\"kubernetes.labels.app\":{\"query\":\"gateway\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":false,\"value\":\"paradigm\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":true,\"value\":\"paradigm-staging\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm-staging\",\"type\":\"phrase\"}}}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/apple-touch-icon-precomposed.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/apple-touch-icon-precomposed.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/apple-touch-icon.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/apple-touch-icon.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/apple-touch-icon-120x120.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/apple-touch-icon-120x120.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/apple-touch-icon-120x120-precomposed.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/apple-touch-icon-120x120-precomposed.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/apple-touch-icon-152x152-precomposed.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/apple-touch-icon-152x152-precomposed.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/apple-touch-icon-152x152.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/apple-touch-icon-152x152.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"NOT wp-content code:[500 TO 599]\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "3c441ea0-0f5a-11e7-b6b1-05aba697aeb8",
+    "_type": "search",
+    "_source": {
+      "title": "gateway-production 4XX",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "kubernetes.labels.app",
+        "log",
+        "code"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.labels.app\",\"negate\":false,\"value\":\"gateway\"},\"query\":{\"match\":{\"kubernetes.labels.app\":{\"query\":\"gateway\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":false,\"value\":\"paradigm\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":true,\"value\":\"paradigm-staging\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm-staging\",\"type\":\"phrase\"}}}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/img/_legacy_/favicon.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/img/_legacy_/favicon.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/svg/distract_me.svg\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/svg/distract_me.svg\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/svg/dfy_logo.svg\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/svg/dfy_logo.svg\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/svg/facebook_share.svg\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/svg/facebook_share.svg\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/img/abstract_back.png\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/img/abstract_back.png\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":true,\"index\":\"logstash-*\",\"key\":\"path\",\"value\":\"/svg/cube.svg\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"path\":{\"query\":\"/svg/cube.svg\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"NOT wp-content code:[400 TO 499] NOT code:444\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "5b145b60-0f5f-11e7-a8d5-15d15d82ceaf",
+    "_type": "search",
+    "_source": {
+      "title": "gateway-production 504",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "kubernetes.labels.app",
+        "log",
+        "code"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.labels.app\",\"negate\":false,\"value\":\"gateway\"},\"query\":{\"match\":{\"kubernetes.labels.app\":{\"query\":\"gateway\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":false,\"value\":\"paradigm\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":true,\"value\":\"paradigm-staging\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm-staging\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"NOT wp-content code:504\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "86dc84e0-0f62-11e7-a8d5-15d15d82ceaf",
+    "_type": "search",
+    "_source": {
+      "title": "gateway-production 404",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "kubernetes.labels.app",
+        "log",
+        "code"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.labels.app\",\"negate\":false,\"value\":\"gateway\"},\"query\":{\"match\":{\"kubernetes.labels.app\":{\"query\":\"gateway\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":false,\"value\":\"paradigm\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":true,\"value\":\"paradigm-staging\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm-staging\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"NOT wp-content code:404\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+    "_type": "search",
+    "_source": {
+      "title": "gateway-production",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "kubernetes.labels.app",
+        "log",
+        "code"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.labels.app\",\"negate\":false,\"value\":\"gateway\"},\"query\":{\"match\":{\"kubernetes.labels.app\":{\"query\":\"gateway\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":false,\"value\":\"paradigm\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"kubernetes.namespace_name\",\"negate\":true,\"value\":\"paradigm-staging\"},\"query\":{\"match\":{\"kubernetes.namespace_name\":{\"query\":\"paradigm-staging\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"NOT wp-content NOT code:444\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  }
+]

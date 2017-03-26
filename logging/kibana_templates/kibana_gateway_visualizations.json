@@ -1,0 +1,287 @@
+[
+  {
+    "_id": "5fc16580-0f5b-11e7-b6b1-05aba697aeb8",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Slowest Upstreams by URL",
+      "visState": "{\"title\":\"Gateway Production Slowest Upstreams by URL\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"upstream_response_time\",\"percents\":[50,90,99],\"customLabel\":\"Upstream Latency\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"path.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1.99\",\"customLabel\":\"Path\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "79b8b1b0-0f5a-11e7-b6b1-05aba697aeb8",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Top 4XX Errors",
+      "visState": "{\"title\":\"Gateway Production Top 4XX Errors\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"path.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Path\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"referer.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Referer\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "savedSearchId": "3c441ea0-0f5a-11e7-b6b1-05aba697aeb8",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "a1cefe20-0f5a-11e7-b6b1-05aba697aeb8",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Top 5XX Urls",
+      "visState": "{\"title\":\"Gateway Production Top 5XX Urls\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"path.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Path\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"referer.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Referer\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "savedSearchId": "451a6340-0f5a-11e7-b6b1-05aba697aeb8",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "a06e71d0-0f5c-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Upstream Response Time Percentiles",
+      "visState": "{\"title\":\"Gateway Production Upstream Response Time Percentiles\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"showCircles\":true,\"interpolate\":\"linear\",\"scale\":\"linear\",\"drawLinesBetweenPoints\":true,\"radiusRatio\":9,\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"upstream_response_time\",\"percents\":[50,90,99],\"customLabel\":\"Upstream Response Time\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"90th percentile of Upstream Response Time\":\"#EAB839\",\"99th percentile of Upstream Response Time\":\"#BF1B00\"}}}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "218631a0-0f5c-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Traffic per Gateway Pod",
+      "visState": "{\"title\":\"Gateway Production Traffic per Gateway Pod\",\"type\":\"area\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"scale\":\"linear\",\"interpolate\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"kubernetes.pod_name.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Pod Name\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "45fa3490-0f5d-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Upstream Response Time Percentile",
+      "visState": "{\"title\":\"Gateway Production Upstream Response Time Percentile\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"upstream_response_time\",\"percents\":[90,99],\"customLabel\":\"Upstream Response Time\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "355e7f10-0f5d-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Request Time Percentile",
+      "visState": "{\"title\":\"Gateway Production Request Time Percentile\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"request_time\",\"percents\":[90,99],\"customLabel\":\"Request Time\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "14920ae0-0f5d-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Unique IPs",
+      "visState": "{\"title\":\"Gateway Production Unique IPs\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"x_forwarded_for.keyword\",\"customLabel\":\"Unique IPs\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "ee04cf70-0f5c-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Unique URLs",
+      "visState": "{\"title\":\"Gateway Production Unique URLs\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"path.keyword\",\"customLabel\":\"Unique URLs\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "aca7a5a0-0f5e-11e7-a8d5-15d15d82ceaf",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Response Time Percentiles",
+      "visState": "{\"title\":\"Gateway Production Response Time Percentiles\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"showCircles\":true,\"interpolate\":\"linear\",\"scale\":\"linear\",\"drawLinesBetweenPoints\":true,\"radiusRatio\":9,\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"request_time\",\"percents\":[50,90,99],\"customLabel\":\"Upstream Response Time\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"90th percentile of Upstream Response Time\":\"#EAB839\",\"99th percentile of Upstream Response Time\":\"#BF1B00\"}}}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "a39bee90-0f5d-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Requests Handled By Host",
+      "visState": "{\"title\":\"Gateway Production Requests Handled By Host\",\"type\":\"area\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"scale\":\"linear\",\"interpolate\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"kubernetes.host.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "dbd656e0-0f5a-11e7-b6b1-05aba697aeb8",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Total Requests",
+      "visState": "{\"title\":\"Gateway Production Total Requests\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"showCircles\":true,\"interpolate\":\"linear\",\"scale\":\"linear\",\"drawLinesBetweenPoints\":true,\"radiusRatio\":9,\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "cf353cb0-0f5c-11e7-96e8-1b277156c2c7",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Total Bytes Sent",
+      "visState": "{\"title\":\"Gateway Production Total Bytes Sent\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":\"50\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"size\",\"customLabel\":\"Total Bytes Sent\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "14e45420-0f5e-11e7-a8d5-15d15d82ceaf",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Total Requests",
+      "visState": "{\"title\":\"Gateway Production Total Requests\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"Total Requests\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "111c7380-0f5a-11e7-b6b1-05aba697aeb8",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Status Code Bar Chart",
+      "visState": "{\"title\":\"Gateway Production Status Code Bar Chart\",\"type\":\"histogram\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"enabled\":true,\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[200 TO 299]\",\"analyze_wildcard\":true}}},\"label\":\"2XX\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[300 TO 399]\",\"analyze_wildcard\":true}}},\"label\":\"3XX\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[400 TO 499]\",\"analyze_wildcard\":true}}},\"label\":\"4XX\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[500 TO 599]\",\"analyze_wildcard\":true}}},\"label\":\"5XX\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"2XX & 3XX\":\"#9AC48A\",\"4XX\":\"#EAB839\",\"5XX\":\"#EA6460\",\"2XX\":\"#7EB26D\",\"3XX\":\"#64B0C8\"}}}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "1f7aa930-0f67-11e7-8617-5bb6e9f85e67",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Status Code Bar Chart (No 3XX)",
+      "visState": "{\"title\":\"Gateway Production Status Code Bar Chart (No 3XX)\",\"type\":\"histogram\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"enabled\":true,\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[200 TO 299]\",\"analyze_wildcard\":true}}},\"label\":\"2XX\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[400 TO 499]\",\"analyze_wildcard\":true}}},\"label\":\"4XX\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"code:[500 TO 599]\",\"analyze_wildcard\":true}}},\"label\":\"5XX\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"2XX & 3XX\":\"#9AC48A\",\"4XX\":\"#EAB839\",\"5XX\":\"#EA6460\",\"2XX\":\"#7EB26D\",\"3XX\":\"#64B0C8\"}}}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "a05b7750-0f62-11e7-a8d5-15d15d82ceaf",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Top 404 Paths",
+      "visState": "{\"title\":\"Gateway Production Top 404 Paths\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"path.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Path\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"referer.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Referer\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "savedSearchId": "86dc84e0-0f62-11e7-a8d5-15d15d82ceaf",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "73018a40-0f5f-11e7-a8d5-15d15d82ceaf",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Top 504 Paths",
+      "visState": "{\"title\":\"Gateway Production Top 504 Paths\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"path.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Path\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"referer.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "savedSearchId": "5b145b60-0f5f-11e7-a8d5-15d15d82ceaf",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "e931b900-0f5b-11e7-b6b1-05aba697aeb8",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gateway Production Upstream Latency Percentiles by Service",
+      "visState": "{\"title\":\"Gateway Production Upstream Latency Percentiles by Service\",\"type\":\"table\",\"params\":{\"perPage\":6,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"upstream_response_time\",\"percents\":[50,90,99],\"customLabel\":\"Latency\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"filters\",\"schema\":\"bucket\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query_string\":{\"query\":\"upstream_addr:10.27.240.127\",\"analyze_wildcard\":true}}},\"label\":\"Distractify.com\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"upstream_addr:10.27.245.249\",\"analyze_wildcard\":true}}},\"label\":\"Thumbor\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"upstream_addr:10.27.242.111\",\"analyze_wildcard\":true}}},\"label\":\"Everybodylookbusy.com\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"upstream_addr:10.27.254.128\",\"analyze_wildcard\":true}}},\"label\":\"paradigm-api\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"upstream_addr:10.27.242.3\",\"analyze_wildcard\":true}}},\"label\":\"paradigm-ui\"},{\"input\":{\"query\":{\"query_string\":{\"query\":\"upstream_addr:10.27.251.32\",\"analyze_wildcard\":true}}},\"label\":\"distractify-legacy\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "savedSearchId": "e92cc0a0-f799-11e6-b033-af30d6c4ada3",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[]}"
+      }
+    }
+  }
+]
