@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: PersistentVolumeClaimList
+items:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      namespace: nexus
+      name: nexus-storage
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 200Gi
+---
+apiVersion: extensions/v1beta1
+kind: DeploymentList
+items:
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+      namespace: nexus
+      labels:
+        app: nexus
+      name: nexus
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: nexus
+        spec:
+          securityContext:
+            fsGroup: 63987
+          containers:
+          - image: nwhite/nexus3:3.2.1
+            name: nexus
+            ports:
+            - containerPort: 8081
+              name: nexus
+            volumeMounts:
+            - name: nexus-storage
+              mountPath: /nexus-data
+            - name: fabric-config
+              mountPath: /opt/sonatype/nexus/etc/fabric
+            - name: jetty-config
+              mountPath: /opt/sonatype/nexus/etc/jetty
+            - name: karaf-config
+              mountPath: /opt/sonatype/nexus/etc/karaf
+            - name: logback-config
+              mountPath: /opt/sonatype/nexus/etc/logback
+            - name: ssl-config
+              mountPath: /opt/sonatype/nexus/etc/ssl
+            - name: runtime-config
+              mountPath: /opt/sonatype/nexus/bin/conf
+          volumes:
+          - name: nexus-storage
+            persistentVolumeClaim:
+              claimName: nexus-storage
+          - name: fabric-config
+            configMap:
+              name: nexus-fabric
+          - name: jetty-config
+            configMap:
+              name: nexus-jetty
+          - name: karaf-config
+            configMap:
+              name: nexus-karaf
+          - name: logback-config
+            configMap:
+              name: nexus-logback
+          - name: ssl-config
+            configMap:
+              name: nexus-ssl
+          - name: runtime-config
+            configMap:
+              name: nexus-runtime

@@ -1,0 +1,16 @@
+ apiVersion: v1
+ kind: PersistentVolumeList
+ items:
+   - apiVersion: v1
+     kind: PersistentVolume
+     metadata:
+       namespace: nexus
+       name: nexus-storage
+     spec:
+      capacity:
+        storage: 200Gi
+      accessModes:
+        - ReadWriteOnce
+      gcePersistentDisk:
+        pdName: "nexus-storage"
+        fsType: "ext4"
